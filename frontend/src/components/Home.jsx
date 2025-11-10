@@ -94,7 +94,7 @@ export const Home = () => {
 
             <div className="bg-[#6ff0dc] rounded-2xl p-5 flex flex-col items-center justify-center shadow-md hover:scale-105 transition-all">
               <img
-                src="/images/distributor.png"
+                src="./images/distributor.png"
                 alt="Distributor Portal"
                 className="w-28 h-28 object-contain mb-3"
               />
