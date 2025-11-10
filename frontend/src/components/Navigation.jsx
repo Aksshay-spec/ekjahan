@@ -43,14 +43,14 @@ export const Navigation = () => {
         <nav className="flex justify-between items-center px-6">
           <Link className="text-[#eb5a25] font-bold text-xl" to="">
             <img
-              src="../../public/images/ekj.png"
+              src="./images/ekj.png"
               alt=""
               className="h-20 w-auto object-contain"
             />
           </Link>
           <Link className="text-[#eb5a25] font-bold text-xl" to="">
             <img
-              src="../../public/images/ekjahpar.png"
+              src="./images/ekjahpar.png"
               alt=""
               className="h-20 w-auto object-contain"
             />

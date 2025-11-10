@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 export const Home = () => {
   const [index, setIndex] = useState(0);
 
-  // HERO SECTION  SLIDER
   useEffect(() => {
     const totalSlides = 3;
     const interval = setInterval(() => {
@@ -12,47 +11,9 @@ export const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // TRENDING PRODUCTS  SLIDER
-  const totalTrending = 10;
-  const visibleCount = 5;
-  const [trendIndex, setTrendIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTrendIndex((prev) => (prev + 1) % totalTrending);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  // SKUs  SLIDER
-  const skuItems = [
-    "150+",
-    "200+",
-    "175+",
-    "220+",
-    "190+",
-    "250+",
-    "300+",
-    "275+",
-  ];
-  const totalSku = skuItems.length;
-  const visibleSkuCount = 4;
-  const [skuIndex, setSkuIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSkuIndex((prev) => (prev + 1) % totalSku);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const trendingProducts = Array.from(
-    { length: totalTrending },
-    (_, i) => i + 1
-  );
-
   return (
     <div className="pt-36">
+      {/* 🖼️ Hero Carousel */}
       <section className="relative text-white overflow-hidden">
         <div className="relative h-[400px] sm:h-[500px] md:h-[650px] w-full overflow-hidden">
           <div
@@ -62,6 +23,7 @@ export const Home = () => {
               transform: `translateX(-${index * 100}%)`,
             }}
           >
+            {/* Slide 1 */}
             <div className="relative min-w-full h-full">
               <img
                 src="./images/ele-bulb.jpg"
@@ -87,12 +49,7 @@ export const Home = () => {
               </div>
             </div>
 
-            <img
-              src="./images/Vegetable-Basket-removebg-preview.png"
-              alt="Grocery Basket"
-              className="w-[400px] md:w-[520px] mt-8 object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-105"
-            />
-
+            {/* Slide 2 */}
             <div className="relative min-w-full h-full">
               <img
                 src="./images/ele-bulb.jpg"
@@ -118,6 +75,7 @@ export const Home = () => {
               </div>
             </div>
 
+            {/* Slide 3 */}
             <div className="relative min-w-full h-full">
               <img
                 src="./images/ele-bulb.jpg"
@@ -146,59 +104,30 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-white py-8 overflow-hidden">
+      <section className="bg-white py-8">
         <div className="max-w-[1200px] mx-auto text-center">
-          <h3 className="mt-8 inline-block text-black px-3 py-1 font-semibold rounded relative after:content-[''] after:block after:w-[90%] after:h-[8px] after:bg-yellow-400 after:mt-1 after:rounded-full after:mx-auto">
+          <h3 className="mt-8 inline-block bg-yellow-400 text-black px-3 py-1 font-semibold rounded">
             Trending Products
           </h3>
 
-          <div className="mt-6 relative w-full overflow-hidden">
-            <div
-              className="flex transition-transform duration-700 ease-in-out"
-              style={{
-                transform: `translateX(-${(trendIndex * 100) / visibleCount}%)`,
-                width: `${(totalTrending / visibleCount) * 100}%`,
-              }}
-            >
-              {trendingProducts.map((n) => (
-                <div
-                  key={n}
-                  className="w-[20%] flex-shrink-0 flex justify-center"
-                >
-                  <div className="w-20 h-20 border-2 border-dashed border-black rounded-full"></div>
-                </div>
-              ))}
-            </div>
+          <div className="mt-5 flex justify-center flex-wrap gap-5">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div
+                key={n}
+                className="w-20 h-20 border-2 border-dashed border-black rounded-full"
+              ></div>
+            ))}
           </div>
-
-          <h3 className="mt-12 inline-block text-black px-3 py-1 font-semibold rounded relative after:content-[''] after:block after:w-[90%] after:h-[8px] after:bg-yellow-400 after:mt-1 after:rounded-full after:mx-auto">
-            Every Count Tells Our Story
-          </h3>
-
-          <div className="mt-8 relative w-full overflow-hidden">
-            <div
-              className="flex transition-transform duration-700 ease-in-out"
-              style={{
-                transform: `translateX(-${
-                  (skuIndex * 100) / visibleSkuCount
-                }%)`,
-                width: `${(totalSku / visibleSkuCount) * 100}%`,
-              }}
-            >
-              {skuItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="w-[25%] flex-shrink-0 flex justify-center"
-                >
-                  <div className="bg-blue-100 mr-2 text-black rounded-lg shadow p-4 w-[150px] sm:w-[180px]">
-                    <h2 className="text-3xl font-bold">{item}</h2>
-                    <p className="text-sm font-semibold mt-1">
-                      Electrical SKUs
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {["150+", "150+", "150+", "150+"].map((item, index) => (
+              <div
+                key={index}
+                className="bg-blue-100 text-black rounded-lg shadow p-4 w-[150px] sm:w-[180px]"
+              >
+                <h2 className="text-3xl font-bold">{item}</h2>
+                <p className="text-sm font-semibold mt-1">Electrical SKUs</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -243,7 +172,7 @@ export const Home = () => {
 
             <div className="bg-[#6ff0dc] rounded-2xl p-5 flex flex-col items-center justify-center shadow-md hover:scale-105 transition-all">
               <img
-                src="./images/distributor.png"
+                src="/images/distributor.png"
                 alt="Distributor Portal"
                 className="w-28 h-28 object-contain mb-3"
               />
