@@ -18,7 +18,7 @@ export const Home = () => {
           </h1>
 
           <img
-            src="/images/Vegetable-Basket-removebg-preview.png"
+            src="./images/Vegetable-Basket-removebg-preview.png"
             alt="Grocery Basket"
             className="w-[400px] md:w-[520px] mt-8 object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-105"
           />
@@ -61,7 +61,7 @@ export const Home = () => {
           <div className="grid grid-cols-2 sm:grid-cols-2 gap-5">
             <div className="bg-[#6ff0dc] rounded-2xl p-5 flex flex-col items-center justify-center shadow-md hover:scale-105 transition-all">
               <img
-                src="../../public/images/electr.jpg"
+                src="./images/electr.jpg"
                 alt="Electrical SAPTAAR"
                 className="w-28 h-28 object-contain mb-3"
               />
@@ -72,7 +72,7 @@ export const Home = () => {
 
             <div className="bg-[#ff7373] rounded-2xl p-5 flex flex-col items-center justify-center shadow-md hover:scale-105 transition-all">
               <img
-                src="../../public/images/fmcg.jpg"
+                src="./images/fmcg.jpg"
                 alt="FMCG Essential"
                 className="w-28 h-28 object-contain mb-3"
               />
@@ -83,7 +83,7 @@ export const Home = () => {
 
             <div className="bg-[#ff7373] rounded-2xl p-5 flex flex-col items-center justify-center shadow-md hover:scale-105 transition-all">
               <img
-                src="../../public/images/vendor.jpg"
+                src="./images/vendor.jpg"
                 alt="Vendor Portal"
                 className="w-28 h-28 object-contain mb-3"
               />
