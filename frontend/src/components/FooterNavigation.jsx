@@ -1,64 +1,58 @@
-import React, { useState } from "react";
-import { FaHome, FaBriefcase, FaBars } from "react-icons/fa";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 import { RiShieldCheckFill } from "react-icons/ri";
+import { FaBriefcase } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+
 export const FooterNavigation = () => {
-  const Menus = [
-    { name: "Home", icon: <FaHome />, dis: "translate-x-0" },
-    { name: "Warranty", icon: <RiShieldCheckFill />, dis: "translate-x-16" },
-    { name: "Career", icon: <FaBriefcase />, dis: "translate-x-32" },
-    { name: "Menu", icon: <FaBars />, dis: "translate-x-48" },
+  const location = useLocation();
+
+  // Define nav items
+  const navItems = [
+    { name: "Home", path: "/home", icon: <FaHome /> },
+    { name: "Warranty", path: "/warranty", icon: <RiShieldCheckFill /> },
+    { name: "Career", path: "/career", icon: <FaBriefcase /> },
+    { name: "Menu", path: "/menu", icon: <FaBars /> },
   ];
 
-  const [active, setActive] = useState(0);
-
   return (
-    <div className="fixed bottom-0 left-0 bg-white w-full px-6 p-2 rounded-t-xl  shadow-[0_-2px_10px_rgba(0,0,0,0.1)] mt-6">
-      <ul className="flex relative justify-between">
-        <span
-          className={`bg-[#eb5a25] duration-500 h-14 w-14 absolute -top-4 rounded-full transform ${
-            active === 0
-              ? " -left-3 translate-x-0"
-              : active === 1
-              ? "left-5 translate-x-16"
-              : active === 2
-              ? "left-9 translate-x-32"
-              : "left-15 translate-x-48"
-          }`}
-        >
-          <span className="w-4 h-4 bg-transparent absolute top-[52px] -left-[16px] rounded-tr-[12px] shadow-[0_-8px_0_0_white]"></span>
-          <span className="w-4 h-4 bg-transparent absolute top-[52px] -right-[16px] rounded-tl-[12px] shadow-[0_-8px_0_0_white]"></span>
-        </span>
-
-        {Menus.map((menu, i) => (
-          <li key={i} className="w-16 z-10">
-            <button
-              className="flex flex-col items-center justify-center text-center pt-6 focus:outline-none"
-              onClick={() => setActive(i)}
+    <div className="fixed bottom-0 left-0 w-full bg-white shadow-t-md flex justify-around items-center py-2 border-t border-gray-200 z-50">
+      {navItems.map((item) => {
+        const isActive = location.pathname === item.path;
+        return (
+          <Link
+            key={item.name}
+            to={item.path}
+            className="flex flex-col items-center justify-center relative"
+          >
+            {/* Floating circle for active item */}
+            <div
+              className={`transition-all duration-300 ease-in-out ${
+                isActive
+                  ? "bg-[#eb5a25] text-white p-3 rounded-full shadow-md -translate-y-3"
+                  : "text-gray-500 text-xl"
+              }`}
             >
-              <span
-                className={`text-2xl cursor-pointer duration-500 ${
-                  i === active ? "-mt-6 text-white" : "text-gray-500"
-                }`}
-              >
-                {menu.icon}
-              </span>
-              <span
-                className={`text-xs font-medium transition-all duration-500 ${
-                  active === i
-                    ? "translate-y-4 opacity-100 text-gray-700 "
-                    : "opacity-100 translate-y-0 text-gray-600"
-                }`}
-              >
-                {menu.name}
-              </span>
-              {active === i && (
-                // <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-[3px] bg-[#eb5a25] rounded-full mt-1"></span>
-                <div className="absolute bottom-0 h-[3px] w-8 bg-[#eb5a25] rounded-full mt-1"></div>
-              )}
-            </button>
-          </li>
-        ))}
-      </ul>
+              <div className="text-2xl">{item.icon}</div>
+            </div>
+
+            {/* Name */}
+            <span
+              className={`mt-1 mb-2 text-xs font-medium ${
+                isActive ? "text-[#eb5a25]" : "text-gray-500"
+              }`}
+            >
+              {item.name}
+            </span>
+
+            {/* Underline animation */}
+            {isActive && (
+              <div className="absolute bottom-0 h-[3px] w-8 bg-[#eb5a25] rounded-full mt-1"></div>
+            )}
+          </Link>
+        );
+      })}
     </div>
   );
 };
