@@ -52,8 +52,9 @@ export const Home = () => {
   );
 
   return (
-    <div className="pt-36">
+    <div className="pt-36 pb-15">
       <section className="relative text-white overflow-hidden">
+        {/* SLIDES CONTAINER */}
         <div className="relative h-[400px] sm:h-[500px] md:h-[650px] w-full overflow-hidden">
           <div
             id="carousel"
@@ -62,13 +63,19 @@ export const Home = () => {
               transform: `translateX(-${index * 100}%)`,
             }}
           >
+            {/* SLIDE 1 */}
             <div className="relative min-w-full h-full">
               <img
-                src="./images/ele-bulb.jpg"
+                src="./images/1.png"
                 alt="Electrical Supplies"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4 sm:px-6">
+
+              {/* Darker black gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/80 to-transparent"></div>
+
+              {/* Text and button moved lower */}
+              <div className="absolute inset-0 flex flex-col justify-end items-center text-center px-4 sm:px-6 pb-8 sm:pb-24">
                 <h2 className="text-yellow-400 text-base underline underline-offset-8 sm:text-xl font-semibold mb-2">
                   Ekjahan Enterprises
                 </h2>
@@ -87,19 +94,16 @@ export const Home = () => {
               </div>
             </div>
 
-            <img
-              src="./images/Vegetable-Basket-removebg-preview.png"
-              alt="Grocery Basket"
-              className="w-[400px] md:w-[520px] mt-8 object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-105"
-            />
-
+            {/* SLIDE 2 */}
             <div className="relative min-w-full h-full">
               <img
-                src="./images/ele-bulb.jpg"
+                src="./images/2.png"
                 alt="Food Distribution"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4 sm:px-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/80 to-transparent"></div>
+
+              <div className="absolute inset-0 flex flex-col justify-end items-center text-center px-4 sm:px-6 pb-8 sm:pb-24">
                 <h2 className="text-yellow-400 text-base underline underline-offset-8 sm:text-xl font-semibold mb-2">
                   Ekjahan Enterprises
                 </h2>
@@ -118,13 +122,16 @@ export const Home = () => {
               </div>
             </div>
 
+            {/* SLIDE 3 */}
             <div className="relative min-w-full h-full">
               <img
-                src="./images/ele-bulb.jpg"
+                src="./images/3.png"
                 alt="Electrical Tools"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4 sm:px-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/80 to-transparent"></div>
+
+              <div className="absolute inset-0 flex flex-col justify-end items-center text-center px-4 sm:px-6 pb-8 sm:pb-24">
                 <h2 className="text-yellow-400 text-base underline underline-offset-8 sm:text-xl font-semibold mb-2">
                   Ekjahan Enterprises
                 </h2>
@@ -142,6 +149,33 @@ export const Home = () => {
                 </button>
               </div>
             </div>
+          </div>
+
+          {/* GREEN NAVIGATION ARROWS — outlined, not filled, color #27cfa8 */}
+          <button
+            onClick={() => setIndex((prev) => (prev - 1 + 3) % 3)}
+            className="absolute left-4 top-1/2 -translate-y-1/2 border-2 border-[#27cfa8] text-[#27cfa8] w-10 h-10 rounded-full flex items-center justify-center transition hover:scale-105"
+          >
+            <span className="text-2xl font-bold leading-none">‹</span>
+          </button>
+
+          <button
+            onClick={() => setIndex((prev) => (prev + 1) % 3)}
+            className="absolute right-4 top-1/2 -translate-y-1/2 border-2 border-[#27cfa8] text-[#27cfa8] w-10 h-10 rounded-full flex items-center justify-center transition hover:scale-105"
+          >
+            <span className="text-2xl font-bold leading-none">›</span>
+          </button>
+
+          {/* CAROUSEL DASHES */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className={`h-[4px] w-6 rounded-full transition-all ${
+                  i === index ? "bg-gray-300" : "bg-gray-500/50"
+                }`}
+              ></span>
+            ))}
           </div>
         </div>
       </section>

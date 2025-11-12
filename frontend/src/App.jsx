@@ -8,6 +8,7 @@ import {
 
 import { Navigation } from "./components/Navigation";
 import { Home } from "./components/Home";
+import { FooterNavigation } from "./components/FooterNavigation";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           {/* Catch all unknown paths */}
           <Route path="*" element={<h2>Page Not Found</h2>} />
         </Routes>
+        <FooterNavigation />
       </div>
     </Router>
   );
