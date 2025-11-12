@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa6";
 import { IoIosCall } from "react-icons/io";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { ImWhatsapp } from "react-icons/im";
@@ -7,35 +8,29 @@ import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 export const Navigation = () => {
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  // Detect scroll
   useEffect(() => {
-    let scrollTimeout;
-
     const handleScroll = () => {
-      setIsScrolling(true);
-      clearTimeout(scrollTimeout);
-
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
-      }, 300);
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(scrollTimeout);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 shadow-md transition-all duration-500">
-      {/* TOP ICON BAR — hidden when scrolling */}
+    <header className="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-white shadow-md">
+      {/* Top navigation — disappears on scroll */}
       <div
-        className={`py-2 transition-all duration-500 ${
-          isScrolling
-            ? "opacity-0 -translate-y-full pointer-events-none"
-            : "opacity-100 translate-y-0"
+        className={`transition-all duration-500 overflow-hidden ${
+          isScrolled
+            ? "opacity-0 h-0 pointer-events-none"
+            : "opacity-100 h-auto py-2"
         }`}
       >
         <nav className="flex justify-between items-center px-6">
@@ -63,31 +58,29 @@ export const Navigation = () => {
         </nav>
       </div>
 
-      {/* LOGO BAR — visible always, becomes transparent when scrolling */}
+      {/* Main logo navigation — always visible & sticks to top */}
       <div
-        className={`py-2 transition-all duration-500 ${
-          isScrolling
-            ? "bg-transparent backdrop-blur-sm"
-            : "bg-white bg-opacity-100"
+        className={`py-3 transition-all duration-500 ${
+          isScrolled ? "shadow-lg" : ""
         }`}
       >
         <nav className="flex justify-between items-center px-6">
           <Link to="" className="text-[#eb5a25] font-bold text-xl">
             <img
-              src="./images/ekj.png"
-              alt="Ekjahan Logo"
-              className="h-20 w-auto object-contain"
+              src="./images/ekjahan.jpeg"
+              alt="Logo 1"
+              className="h-20 w-20 object-contain transition-all duration-300"
             />
           </Link>
           <Link to="" className="text-[#eb5a25] font-bold text-xl">
             <img
               src="./images/ekjahpar.png"
-              alt="Partnership Icon"
-              className="h-20 w-auto object-contain"
+              alt="Logo 2"
+              className="h-20 w-20 object-contain transition-all duration-300"
             />
           </Link>
         </nav>
       </div>
-    </div>
+    </header>
   );
 };
