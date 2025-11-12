@@ -13,7 +13,7 @@ import { FooterNavigation } from "./components/FooterNavigation";
 function App() {
   return (
     <Router basename="/ekjahan">
-      <div className="w-full max-w-full sm:max-w-[600px] md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1200px] mx-auto my-5 p-4 sm:p-5 font-sans">
+      <div className="w-full max-w-full sm:max-w-[600px] md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1200px] mx-auto  sm:p-5 font-sans">
         <Navigation />
 
         <Routes>
