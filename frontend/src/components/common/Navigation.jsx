@@ -7,7 +7,7 @@ import { FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-export const Navigation = () => {
+const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Detect scroll
@@ -84,3 +84,4 @@ export const Navigation = () => {
     </header>
   );
 };
+export default Navigation;

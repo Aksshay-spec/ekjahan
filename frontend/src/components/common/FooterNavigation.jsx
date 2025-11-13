@@ -5,7 +5,7 @@ import { RiShieldCheckFill } from "react-icons/ri";
 import { FaBriefcase } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 
-export const FooterNavigation = () => {
+const FooterNavigation = () => {
   const location = useLocation();
 
   // Define nav items
@@ -56,3 +56,4 @@ export const FooterNavigation = () => {
     </div>
   );
 };
+export default FooterNavigation;
