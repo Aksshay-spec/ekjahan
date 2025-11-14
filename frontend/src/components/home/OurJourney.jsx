@@ -1,72 +1,147 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export const OurJourney = () => {
-  const journeyData = [
-    { year: "2012", text: "SAPTAAR launched", left: true },
-    { year: "2015", text: "FMCG division introduced", left: false },
-    { year: "2018", text: "1M+ electrical units sold", left: true },
-    { year: "2020", text: "2M+ FMCG packs distributed", left: false },
-    { year: "2021", text: "Vendor retention hits 87%", left: true },
+  const [stars, setStars] = useState([]);
+
+  useEffect(() => {
+    const generateStars = () => {
+      const newStars = [];
+      for (let i = 0; i < 50; i++) {
+        newStars.push({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 3 + 1,
+          duration: Math.random() * 3 + 2,
+          delay: Math.random() * 2,
+        });
+      }
+      setStars(newStars);
+    };
+    generateStars();
+  }, []);
+
+  const timelineData = [
+    {
+      year: "2012",
+      text: "SAPTAAR launched",
+      position: "left",
+      colors: "from-red-400 via-blue-500 to-pink-400",
+    },
+    {
+      year: "2015",
+      text: "FMCG division introduced",
+      position: "right",
+      colors: "from-yellow-200 via-pink-300 to-pink-400",
+    },
+    {
+      year: "2018",
+      text: "1M+ electrical units sold",
+      position: "left",
+      colors: "from-red-400 via-blue-500 to-pink-400",
+    },
+    {
+      year: "2020",
+      text: "2M+ FMCG packs distributed",
+      position: "right",
+      colors: "from-yellow-200 via-pink-300 to-pink-400",
+    },
+    {
+      year: "2022",
+      text: "New ventures launched in 10+ cities",
+      position: "left",
+      colors: "from-red-400 via-blue-500 to-pink-400",
+    },
   ];
 
   return (
-    <section className="relative w-full overflow-hidden py-16 text-center text-black">
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source src="./images/back-vi.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className="min-h-screen bg-black relative overflow-hidden px-4 py-8 sm:py-12">
+      {/* Diagonal Lines Background */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute h-0.5 w-full bg-gradient-to-r from-transparent via-white to-transparent transform -rotate-45"
+            style={{
+              top: `${i * 10}%`,
+              left: "-50%",
+              width: "200%",
+            }}
+          />
+        ))}
+      </div>
 
-      {/* Overlay for contrast */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      {/* animation */}
+      {stars.map((star) => (
+        <div
+          key={star.id}
+          className="absolute rounded-full bg-white animate-pulse"
+          style={{
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            animationDuration: `${star.duration}s`,
+            animationDelay: `${star.delay}s`,
+          }}
+        />
+      ))}
 
-      <div className="relative z-10">
-        <h2 className="text-3xl font-extrabold text-white">OUR JOURNEY</h2>
-        <div className="h-1 w-24 bg-yellow-400 mx-auto my-3 rounded-full"></div>
+  
+      <div className="relative z-10 max-w-4xl mx-auto">
 
-        {/* Timeline code */}
-        <div className="flex flex-col gap-8 items-center mx-auto mt-8 w-full">
-          {journeyData.map((item, index) => (
-            <div
-              key={index}
-              className={`relative flex items-center justify-center w-full mb-8 ${
-                item.left ? "flex-row" : "flex-row-reverse"
-              }`}
-            >
-              {/* Gradient-Box */}
-              <div
-                className={`relative p-6 text-base sm:text-lg font-semibold text-black rounded-2xl shadow-md ${
-                  item.left
-                    ? "bg-gradient-to-r from-indigo-500 to-pink-400"
-                    : "bg-gradient-to-r from-yellow-200 to-pink-300"
-                } w-[85%] sm:w-[600px] md:w-[700px] text-center mx-auto`}
-              >
-                {item.text}
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+            OUR JOURNEY
+          </h1>
+          <div className="w-48 sm:w-64 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 mx-auto rounded-full" />
+        </div>
 
-                {/* Circle */}
-                <div
-                  className={`absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-24 h-24 rounded-full text-white font-extrabold text-2xl shadow-lg ${
-                    item.left
-                      ? "-left-12 bg-[#ff6b6b]"
-                      : "-right-12 bg-[#2ad4c4]"
-                  }`}
-                  //   style={{
-                  //     transform: "translateY(-50%)",
-                  //   }}
-                >
-                  {item.year}
-                </div>
+        {/* Timeline Items */}
+        <div className="space-y-6 sm:space-y-8">
+          {timelineData.map((item, index) => (
+            <div key={index} className="flex justify-center">
+              <div className="w-full max-w-2xl h-28 sm:h-32 relative">
+                {item.position === "left" ? (
+                  <>
+                    {/* Gradient-Box */}
+                    <div
+                      className={`absolute left-14 sm:left-16 right-0 top-0 bottom-0 rounded-3xl bg-gradient-to-r ${item.colors} shadow-2xl flex items-center justify-center pl-10`}
+                    >
+                      <p className="text-xs sm:text-2xl md:text-3xl font-semibold text-black text-center">
+                        {item.text}
+                      </p>
+                    </div>
+                    {/* Year circle */}
+                    <div className="absolute left-0 top-0 w-28 h-28 sm:w-32 sm:h-32 bg-red-400 rounded-full flex items-center justify-center shadow-lg z-10">
+                      <span className="text-4xl sm:text-5xl font-bold text-white">
+                        {item.year}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* colo-gradient-box */}
+                    <div
+                      className={`absolute left-0 right-14 sm:right-16 top-0 bottom-0 rounded-3xl bg-gradient-to-r ${item.colors} shadow-2xl flex items-center justify-center pr-10`}
+                    >
+                      <p className="text-xs sm:text-2xl md:text-3xl font-semibold text-black text-center">
+                        {item.text}
+                      </p>
+                    </div>
+                    {/* Year-Circle */}
+                    <div className="absolute right-0 top-0 w-28 h-28 sm:w-32 sm:h-32 bg-teal-400 rounded-full flex items-center justify-center shadow-lg z-10">
+                      <span className="text-4xl sm:text-5xl font-bold text-white">
+                        {item.year}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };

@@ -42,8 +42,35 @@ export const OurNews = () => {
     setCurrent((prev) => (prev + 1) % newsItems.length);
   };
 
+  // -----------------------------
+  // 👉 Mobile Swipe Logic (added)
+  // -----------------------------
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const handleTouchStart = (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    const diff = touchEndX - touchStartX;
+
+    if (diff < -50) nextSlide(); // Swipe left → Next
+    if (diff > 50) prevSlide(); // Swipe right → Prev
+  };
+  // -----------------------------
+
   return (
-    <section className="relative py-16 text-center overflow-hidden">
+    <section
+      className="relative py-16 text-center overflow-hidden"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <h2 className="text-3xl font-bold text-black mb-1">Our related News</h2>
       <p className="text-lg font-semibold text-gray-700 mb-6">
         Your Trust our Guarantee
@@ -52,7 +79,7 @@ export const OurNews = () => {
       <div className="h-1 w-32 bg-yellow-400 mx-auto mb-10 rounded-full"></div>
 
       <div className="flex items-center justify-center w-full">
-        {/* for Left Arrow */}
+        {/* Left Arrow */}
         <div className="w-[20%] flex justify-end pr-4">
           <button
             onClick={prevSlide}
@@ -62,7 +89,7 @@ export const OurNews = () => {
           </button>
         </div>
 
-        {/* Slider Area */}
+        {/* Slider */}
         <div className="relative w-[60%] overflow-hidden flex justify-center items-center">
           <div
             className="flex transition-transform duration-700 ease-in-out"
@@ -77,7 +104,6 @@ export const OurNews = () => {
                 className="w-full flex justify-center items-center flex-shrink-0"
               >
                 <div className="bg-[#ff6b6b] rounded-2xl shadow-lg text-white w-[90%] sm:w-[400px] md:w-[420px] h-[200px] flex flex-col items-center justify-center px-6 py-6 relative">
-                  {/* Icon */}
                   <div className="w-16 h-16 border-2 border-white rounded-full flex items-center justify-center mb-4">
                     <FaUsers className="text-white text-3xl" />
                   </div>
@@ -86,7 +112,6 @@ export const OurNews = () => {
                     {item.title}
                   </h3>
 
-                  {/* Publication */}
                   <p className="italic font-semibold text-white/90 mt-2">
                     — {item.publication}
                   </p>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 const TrendingProducts = () => {
@@ -9,6 +8,36 @@ const TrendingProducts = () => {
     { length: totalTrending },
     (_, i) => i + 1
   );
+
+  // -----------------------------
+  // 👉 Swipe States
+  // -----------------------------
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const handleTouchStart = (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    const swipeDistance = touchEndX - touchStartX;
+
+    // Swipe left → next item
+    if (swipeDistance < -50) {
+      setTrendIndex((prev) => (prev + 1) % totalTrending);
+    }
+
+    // Swipe right → previous item
+    if (swipeDistance > 50) {
+      setTrendIndex((prev) => (prev === 0 ? totalTrending - 1 : prev - 1));
+    }
+  };
+  // -----------------------------
 
   useEffect(() => {
     const interval = setInterval(
@@ -24,7 +53,11 @@ const TrendingProducts = () => {
         Trending Products
       </h3>
 
-      <div className="mt-6 relative w-full overflow-hidden">
+      <div
+        className="mt-6 relative w-full overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="flex transition-transform duration-700 ease-in-out"
           style={{

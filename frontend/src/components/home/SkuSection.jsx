@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const SkuSection = () => {
   const skuItems = [
@@ -15,6 +15,34 @@ const SkuSection = () => {
   const visibleSkuCount = 4;
   const [skuIndex, setSkuIndex] = useState(0);
 
+  // Swipe refs
+  const startX = useRef(0);
+  const endX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    endX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const distance = startX.current - endX.current;
+
+    if (distance > 50) {
+      // Swipe left → NEXT
+      setSkuIndex((prev) => (prev + 1) % totalSku);
+    } else if (distance < -50) {
+      // Swipe right → PREVIOUS
+      setSkuIndex((prev) => (prev - 1 + totalSku) % totalSku);
+    }
+
+    startX.current = 0;
+    endX.current = 0;
+  };
+
+  // Auto change effect
   useEffect(() => {
     const interval = setInterval(
       () => setSkuIndex((prev) => (prev + 1) % totalSku),
@@ -29,7 +57,13 @@ const SkuSection = () => {
         Every Count Tells Our Story
       </h3>
 
-      <div className="mt-8 relative w-full overflow-hidden">
+      <div
+        className="mt-8 relative w-full overflow-hidden"
+        // 👇 Add swipe support here
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="flex transition-transform duration-700 ease-in-out"
           style={{
