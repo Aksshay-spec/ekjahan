@@ -10,7 +10,7 @@ const FooterNavigation = () => {
 
   // Define nav items
   const navItems = [
-    { name: "Home", path: "/home", icon: <FaHome /> },
+    { name: "Home", path: "/", icon: <FaHome /> },
     { name: "Warranty", path: "/warranty", icon: <RiShieldCheckFill /> },
     { name: "Career", path: "/career", icon: <FaBriefcase /> },
     { name: "Menu", path: "/menu", icon: <FaBars /> },
