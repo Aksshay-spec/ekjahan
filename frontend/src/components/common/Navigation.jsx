@@ -21,7 +21,7 @@ const Navigation = () => {
     <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-500">
       {/* Top navigation — smoothly hides on scroll */}
       <div
-        className={`transition-all duration-500 ease-in-out ${
+        className={`transition-all duration-300 ease-in-out ${
           isScrolled
             ? "opacity-0 max-h-0 -translate-y-4"
             : "opacity-100 max-h-[80px] translate-y-0 pt-2"
