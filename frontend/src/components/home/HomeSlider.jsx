@@ -1,9 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const HomeSlider = () => {
   const [index, setIndex] = useState(0);
   const totalSlides = 3;
 
+  // For swipe detection
+  const startX = useRef(0);
+  const endX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    endX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const distance = startX.current - endX.current;
+
+    if (distance > 50) {
+      // swipe left → NEXT
+      setIndex((prev) => (prev + 1) % totalSlides);
+    } else if (distance < -50) {
+      // swipe right → PREVIOUS
+      setIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    }
+
+    // reset
+    startX.current = 0;
+    endX.current = 0;
+  };
+
+  // Auto sliding
   useEffect(() => {
     const interval = setInterval(
       () => setIndex((prev) => (prev + 1) % totalSlides),
@@ -14,7 +43,13 @@ const HomeSlider = () => {
 
   return (
     <section className="relative text-white overflow-hidden">
-      <div className="relative h-[400px] sm:h-[500px] md:h-[650px] w-full overflow-hidden">
+      <div
+        className="relative h-[400px] sm:h-[500px] md:h-[650px] w-full overflow-hidden"
+        // 👇 swipe handlers added here
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="flex h-full transition-transform duration-1000 ease-in-out"
           style={{ transform: `translateX(-${index * 100}%)` }}
@@ -67,6 +102,7 @@ const HomeSlider = () => {
           ))}
         </div>
 
+        {/* Left arrow */}
         <button
           onClick={() =>
             setIndex((prev) => (prev - 1 + totalSlides) % totalSlides)
@@ -75,6 +111,8 @@ const HomeSlider = () => {
         >
           ‹
         </button>
+
+        {/* Right arrow */}
         <button
           onClick={() => setIndex((prev) => (prev + 1) % totalSlides)}
           className="absolute right-4 top-1/2 -translate-y-1/2 border-2 border-[#27cfa8] text-[#27cfa8] w-10 h-10 rounded-full flex items-center justify-center transition hover:scale-105"
