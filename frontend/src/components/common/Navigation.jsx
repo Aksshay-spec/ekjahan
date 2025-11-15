@@ -7,27 +7,51 @@ import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [hideTopNav, setHideTopNav] = useState(false);
+  const [lastScroll, setLastScroll] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
+      const current = window.scrollY;
+
+      // Hide top nav when scrolling down past 80px
+      // Show top nav when scrolling back to top (less than 80px)
+      if (current > 80) {
+        if (current > lastScroll) {
+          setHideTopNav(true); // scrolling down
+        }
+      } else {
+        setHideTopNav(false); // at the top
+      }
+
+      setLastScroll(current);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScroll]);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-500">
-      {/* Top navigation — smoothly hides on scroll */}
+    <header className="w-full z-[1000]">
+      {/* FIRST NAV — Hide on scroll down, show when back at top */}
       <div
-        className={`transition-all duration-300 ease-in-out ${
-          isScrolled
-            ? "opacity-0 max-h-0 -translate-y-4"
-            : "opacity-100 max-h-[80px] translate-y-0 pt-2"
-        }`}
+        className={`fixed top-0 left-0 w-full
+          bg-white/20 backdrop-blur-lg
+          border-b border-white/30 shadow-lg
+          transition-all duration-500 ease-in-out
+          ${
+            hideTopNav
+              ? "opacity-0 -translate-y-full pointer-events-none"
+              : "opacity-100 translate-y-0"
+          }
+        `}
+        style={{
+          WebkitBackdropFilter: "blur(16px)",
+          backdropFilter: "blur(16px)",
+          zIndex: 1000,
+        }}
       >
-        <nav className="flex justify-between items-center px-6 py-2">
+        <nav className="flex justify-between items-center px-6 h-[65px]">
           <Link
             className="text-[#eb5a25] text-xl hover:scale-110 transition-transform"
             to=""
@@ -73,29 +97,41 @@ const Navigation = () => {
         </nav>
       </div>
 
-      {/* Main logo navigation — always visible */}
+      {/* SECOND NAV — Always visible, moves to top when first nav hides */}
       <div
-        className={`transition-all duration-500 ${
-          isScrolled ? "shadow-lg" : ""
-        }`}
+        className={`fixed left-0 w-full
+          bg-white/25 backdrop-blur-xl shadow-xl
+          transition-all duration-500 ease-in-out
+          ${hideTopNav ? "top-0" : "top-[65px]"}
+        `}
+        style={{
+          WebkitBackdropFilter: "blur(22px)",
+          backdropFilter: "blur(22px)",
+          borderBottom: "1px solid rgba(255,255,255,0.35)",
+          zIndex: 1000,
+        }}
       >
-        <nav className="flex justify-between items-center px-6 py-2">
-          <Link to="" className="text-[#eb5a25] font-bold text-xl">
+        <nav className="flex justify-between items-center px-6 h-[80px]">
+          <Link to="">
             <img
               src="./images/ekjahan.jpeg"
               alt="Logo 1"
-              className="h-20 w-20 object-contain transition-all duration-300 hover:scale-105"
+              className="h-16 object-contain transition-all hover:scale-105"
             />
           </Link>
-          <Link to="" className="text-[#eb5a25] font-bold text-xl">
+
+          <Link to="">
             <img
               src="./images/ekjahpar.png"
               alt="Logo 2"
-              className="h-20 w-20 object-contain transition-all duration-300 hover:scale-105"
+              className="h-16 object-contain transition-all hover:scale-105"
             />
           </Link>
         </nav>
       </div>
+
+      {/* Spacer to prevent content from going under the fixed header */}
+      <div className={hideTopNav ? "h-[40px]" : "h-[10px]"}></div>
     </header>
   );
 };
