@@ -58,7 +58,7 @@ const Navigation = () => {
       </div>
 
       {/* MAIN LOGO NAVIGATION - Sticky, stays at top when scrolling */}
-      <nav className="sticky top-0 w-full bg-white shadow-md z-[1000]">
+      <nav className="sticky top-0 w-full bg-white/30 backdrop-blur-md shadow-md z-[1000]">
         <div className="flex justify-between items-center px-6 h-[40px]">
           <Link to="">
             <img
