@@ -67,7 +67,7 @@ const TrendingProducts = () => {
         >
           {trendingProducts.map((n) => (
             <div key={n} className="w-[20%] flex-shrink-0 flex justify-center">
-              <div className="w-20 h-20 border-2 border-dashed border-black rounded-full"></div>
+              <div className="w-28 h-28 border-2 border-dashed border-black rounded-full"></div>
             </div>
           ))}
         </div>

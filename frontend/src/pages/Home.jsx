@@ -18,7 +18,7 @@ import { OurJourney } from "../components/home/OurJourney";
 
 const Home = () => {
   return (
-    <div className="pt-36 pb-15">
+    <div className=" pb-15">
       <Navigation />
       <HomeSlider />
       <TrendingProducts />
