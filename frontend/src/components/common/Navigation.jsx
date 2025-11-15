@@ -38,7 +38,7 @@ const Navigation = () => {
         className={`fixed top-0 left-0 w-full
           bg-white/20 backdrop-blur-lg
           border-b border-white/30 shadow-lg
-          transition-all duration-500 ease-in-out
+          transition-all duration-300 ease-in-out
           ${
             hideTopNav
               ? "opacity-0 -translate-y-full pointer-events-none"
