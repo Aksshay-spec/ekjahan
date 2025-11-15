@@ -1,0 +1,14 @@
+/* FIRST NAV glass effect */
+.first-nav-glass {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+}
+
+/* SECOND NAV glass effect */
+.second-nav-glass {
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  z-index: 1000;
+}

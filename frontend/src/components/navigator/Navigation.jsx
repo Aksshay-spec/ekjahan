@@ -6,6 +6,8 @@ import { FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
+import "../css-files/Navigation.css";
+
 const Navigation = () => {
   const [hideTopNav, setHideTopNav] = useState(false);
   const [lastScroll, setLastScroll] = useState(0);
@@ -14,14 +16,12 @@ const Navigation = () => {
     const handleScroll = () => {
       const current = window.scrollY;
 
-      // Hide top nav when scrolling down past 80px
-      // Show top nav when scrolling back to top (less than 80px)
-      if (current > 80) {
+      if (current > 40) {
         if (current > lastScroll) {
-          setHideTopNav(true); // scrolling down
+          setHideTopNav(true);
         }
       } else {
-        setHideTopNav(false); // at the top
+        setHideTopNav(false);
       }
 
       setLastScroll(current);
@@ -33,23 +33,18 @@ const Navigation = () => {
 
   return (
     <header className="w-full z-[1000]">
-      {/* FIRST NAV — Hide on scroll down, show when back at top */}
+      {/* FIRST NAV */}
       <div
         className={`fixed top-0 left-0 w-full
           bg-white/20 backdrop-blur-lg
           border-b border-white/30 shadow-lg
-          transition-all duration-300 ease-in-out
+          transition-all duration-300 ease-in-out first-nav-glass
           ${
             hideTopNav
               ? "opacity-0 -translate-y-full pointer-events-none"
               : "opacity-100 translate-y-0"
           }
         `}
-        style={{
-          WebkitBackdropFilter: "blur(16px)",
-          backdropFilter: "blur(16px)",
-          zIndex: 1000,
-        }}
       >
         <nav className="flex justify-between items-center px-6 h-[65px]">
           <Link
@@ -97,19 +92,13 @@ const Navigation = () => {
         </nav>
       </div>
 
-      {/* SECOND NAV — Always visible, moves to top when first nav hides */}
+      {/* SECOND NAV */}
       <div
         className={`fixed left-0 w-full
-          bg-white/25 backdrop-blur-xl shadow-xl
+          bg-white/25 backdrop-blur-xl shadow-xl second-nav-glass
           transition-all duration-500 ease-in-out
           ${hideTopNav ? "top-0" : "top-[65px]"}
         `}
-        style={{
-          WebkitBackdropFilter: "blur(22px)",
-          backdropFilter: "blur(22px)",
-          borderBottom: "1px solid rgba(255,255,255,0.35)",
-          zIndex: 1000,
-        }}
       >
         <nav className="flex justify-between items-center px-6 h-[80px]">
           <Link to="">
@@ -130,7 +119,6 @@ const Navigation = () => {
         </nav>
       </div>
 
-      {/* Spacer to prevent content from going under the fixed header */}
       <div className={hideTopNav ? "h-[40px]" : "h-[10px]"}></div>
     </header>
   );
