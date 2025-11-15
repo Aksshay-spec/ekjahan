@@ -16,7 +16,7 @@ const Navigation = () => {
     const handleScroll = () => {
       const current = window.scrollY;
 
-      if (current > 40) {
+      if (current > 10) {
         if (current > lastScroll) {
           setHideTopNav(true);
         }
