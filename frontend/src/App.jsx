@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   return (
-    <Router basename="/ekjahan">
+    <Router basename="/ekjahan-1">
       <div className="w-full max-w-full sm:max-w-[600px] md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1200px] mx-auto sm:p-5 font-sans">
         <Routes>
           {/* This route will render Home when user goes to /ekjahan */}
