@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosCall } from "react-icons/io";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { ImWhatsapp } from "react-icons/im";
 import { FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+
+import "../css-files/Navigation.css";
 
 const Navigation = () => {
   return (
